@@ -20,7 +20,7 @@ mongoose - MongoDB abstraction
 # db.js
 ```javascript
 // in config/ so not repo'd with git
-const mongoose = ('monggose');
+const mongoose = ('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
 
