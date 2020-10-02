@@ -13,7 +13,8 @@ mongoose - MongoDB abstraction
 # default.json (used to define global variables)
 ```json
 {
-    mongoURI: "secret"
+ "mongoURI": "mongodb+srv://<dbuser>:<pass>@<cluster>/<dbname>?[dbOptions]",
+ "jwtSecret" : "secret"
 }
 ```
 
