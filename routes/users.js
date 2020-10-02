@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router();
+const jwt = require('jsonwebtoken')
+const config = require('config')
 const { check, validationResult } = require('express-validator/check');
+const bcrypt = require('bcryptjs');
+
 const User = require('../models/User');
 
 // @ route Post api/users
@@ -32,8 +36,6 @@ router.post('/', [
             name,
             email,
             password
-
-
         });
 
         // Encrypt password before passing it to DB
@@ -43,12 +45,25 @@ router.post('/', [
         // Pass to db
         await user.save();
 
+        // Make jwt
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
+        jwt.sign(payload, config.get('jwtSecret'), {
+            expiresIn: 3600 // an hour
+        }), (err, token) => {
+            if (err) throw err;
+            res.json({ token });
+        }
+
     } catch (err) {
         // make an error handler
         console.error(err.message);
-        res.status(500).send('Server error')
+        res.status(500).send("Server Error, see log")
 
     }
-})
+});
 
 module.exports = router;
