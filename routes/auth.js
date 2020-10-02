@@ -25,10 +25,44 @@ router.get('/', async (req, res) => {
 // @desc    Auth user & get JWT
 // @access  Public
 
-// router.post('/', [
-//validator params
-//], async (req, res) => {
-//
-// }
+router.post('/', [
+    check('email', 'please include a valid email').isEmail(),
+    check('password', 'password is required').exists()
+], async (req, res) => {
+    // Handle Express Validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Destructure user
+    const { email, password } = req.body;
+    try {
+        // Check if user exists
+        let user = await User.findOne({ email });
+        if (!user) { return res.status(400).json({ msg: 'invalid email' }) }
+
+        // Check if password is correct
+        const isMatch = bcrypt.compare(password, user.password);
+        if (!isMatch) { return res.status(400).json({ msg: 'invalid pass' }) }
+
+        // Else make jwt
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
+        jwt.sign(payload, config.get('jwtSecret'), {
+            expiresIn: 3600 // an hour
+        }), (err, token) => {
+            if (err) throw err;
+            res.json({ token });
+        }
+
+    } catch (err) {
+
+    }
+
+})
 
 module.exports = router;
