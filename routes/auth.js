@@ -21,10 +21,10 @@ router.get('/', async (req, res) => {
     }
 });
 
+
 // @route   POST api/users
 // @desc    Auth user & get JWT
 // @access  Public
-
 router.post('/', [
     check('email', 'please include a valid email').isEmail(),
     check('password', 'password is required').exists()
@@ -43,7 +43,7 @@ router.post('/', [
         if (!user) { return res.status(400).json({ msg: 'invalid email' }) }
 
         // Check if password is correct
-        const isMatch = bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) { return res.status(400).json({ msg: 'invalid pass' }) }
 
         // Else make jwt
@@ -52,6 +52,7 @@ router.post('/', [
                 id: user.id
             }
         }
+        // res.json(user);
         jwt.sign(payload, config.get('jwtSecret'), {
             expiresIn: 3600 // an hour
         }), (err, token) => {
@@ -60,6 +61,8 @@ router.post('/', [
         }
 
     } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error")
 
     }
 
