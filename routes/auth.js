@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator/check');
 
 const User = require('../models/User')
 
-// @route   GET api/users
+// @route   GET api/auth
 // @desc    Get logged in user
 // @access  Private
 router.get('/', auth, async (req, res) => {
@@ -23,7 +23,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 
-// @route   POST api/users
+// @route   POST api/auth
 // @desc    Auth user & get JWT
 // @access  Public
 router.post('/', [
