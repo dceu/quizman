@@ -54,12 +54,15 @@ router.post('/', [
             }
         }
         // res.json(user);
-        jwt.sign(payload, config.get('jwtSecret'), {
-            expiresIn: 3600 // an hour
-        }), (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        }
+        jwt.sign(payload, config.get('jwtSecret'),
+            {
+                expiresIn: 3600 // an hour
+            },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            }
+        );
 
     } catch (err) {
         console.error(err.message);
