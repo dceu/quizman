@@ -21,6 +21,33 @@ router.get('/', auth, async (req, res) => {
     }
 })
 
+////////////////////////////////////////////////
+// @route       GET api/quizzes/:id
+// @desc        GET One Quiz
+// @access      Public (will later be private)
+router.get('/:id', async (req, res) => {
+
+
+    const { title, questions } = req.body;
+    const quizFields = {};
+
+
+    if (title) quizFields.title = title;
+    if (questions) quizFields.questions = questions;
+
+    try {
+        let quiz = await Quiz.findById(req.params.id);
+        if (!quiz) return res.status(404).json({ msg: 'Quiz not found' });
+        res.json(quiz);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error')
+
+
+    }
+})
+
+
 
 ///////////////////////////////////////////////
 //  @route      POST api/quizzes
@@ -67,13 +94,13 @@ router.put('/:id', auth, async (req, res) => {
     const quizFields = {};
 
 
-    if (title) quizFields.title = tite;
+    if (title) quizFields.title = title;
     if (questions) quizFields.questions = questions;
 
     try {
-        let question = await Quiz.findById(req.params.id);
+        let quiz = await Quiz.findById(req.params.id);
 
-        if (!quiz) return res.status(404).json({ msg: 'Contact not found' });
+        if (!quiz) return res.status(404).json({ msg: 'Quiz not found' });
 
         // Make sure user is not author of quiz
         if (quiz.author.toString() !== req.user.id) {
@@ -82,9 +109,9 @@ router.put('/:id', auth, async (req, res) => {
 
         quiz = await Quiz.findByIdAndUpdate(
             req.params.id,
-            { $set: contactFields },
+            { $set: quizFields },
             { new: true });
-        res.json(contact);
+        res.json(quiz);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error')
@@ -99,7 +126,7 @@ router.put('/:id', auth, async (req, res) => {
 //  @access     Private
 router.delete('/:id', auth, async (req, res) => {
     try {
-        let question = await Quiz.findById(req.params.id);
+        let quiz = await Quiz.findById(req.params.id);
 
         if (!quiz) return res.status(404).json({ msg: 'Contact not found' });
 
