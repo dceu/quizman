@@ -64,4 +64,24 @@ const QuizState = props => {
     };
 
     const [state, dispatch] = useReducer(QuizReducer, initialState);
-}
+
+    //  ADD QUIZ
+    //  DELETE QUIZ
+    //  SET CURRENT QUIZ
+    //  CLEAR Current
+    //  UPDATE QUIZ
+    //  FILTER Quiz
+    //  CLEAR Quiz
+
+    return (
+        <QuizContext.Provider
+            value={{
+                quizzes: state.quizzes
+            }}
+        >
+            {props.children}
+        </QuizContext.Provider>
+    )
+};
+
+export default QuizState;
