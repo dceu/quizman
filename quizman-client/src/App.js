@@ -6,24 +6,30 @@ import Home from './components/pages/Home'
 import About from './components/pages/About'
 import './App.css';
 
+import QuizState from './context/Quiz/QuizState'
+
 function App() {
   return (
-    <Router>
-      <Fragment >
-        <Navbar />
+    <QuizState>
+      <Router>
+        <Fragment >
+          <Navbar />
 
 
-        <div className="App-header">
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/about' component={About} />
-          </Switch>
+          <div className="App-header">
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/about' component={About} />
+            </Switch>
 
 
-        </div>
+          </div>
 
-      </Fragment>
-    </Router>
+        </Fragment>
+      </Router>
+
+    </QuizState>
+
 
   );
 }
