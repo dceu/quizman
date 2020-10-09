@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Fragment, useContext } from 'react'
+import QuizContext from '../../context/Quiz/QuizContext'
 
 const Quizzes = () => {
     return (
