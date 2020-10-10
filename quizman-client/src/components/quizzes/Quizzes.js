@@ -1,11 +1,18 @@
 import React, { Fragment, useContext } from 'react'
+import QuizItem from './QuizItem'
 import QuizContext from '../../context/Quiz/QuizContext'
 
 const Quizzes = () => {
-    return (
-        <div>
+    const quizContext = useContext(QuizContext);
 
-        </div>
+    const { quizzes } = quizContext;
+
+    return (
+        <Fragment>
+            {quizzes.map(quiz => (
+                <QuizItem key={quiz.id} quiz={quiz} />
+            ))}
+        </Fragment>
     )
 }
 
