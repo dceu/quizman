@@ -25,10 +25,10 @@ const QuizState = props => {
                             "this is a distractor",
                             "this is also a distractor",
                         ],
-                        answer: "this is the answer",
+                        answer: "this is the answer"
                     }
                 ],
-                date: Date.now
+                date: Date.now()
             },
             {
                 id: 2,
@@ -40,10 +40,20 @@ const QuizState = props => {
                             "this is a distractor",
                             "this is also a distractor",
                         ],
-                        answer: "this is the answer",
+                        answer: "this is the answer"
+                    },
+                    {
+                        question: 'How many questions does this quiz have?',
+                        distractors: [
+                            "7",
+                            "0",
+                            "8",
+                            "-2"
+                        ],
+                        answer: "2"
                     }
                 ],
-                date: Date.now
+                date: Date.now()
             },
             {
                 id: 3,
@@ -55,10 +65,10 @@ const QuizState = props => {
                             "this is a distractor",
                             "this is also a distractor",
                         ],
-                        answer: "this is the answer",
+                        answer: "this is the answer"
                     }
                 ],
-                date: Date.now
+                date: Date.now()
             }
         ]
     };
@@ -76,7 +86,8 @@ const QuizState = props => {
     return (
         <QuizContext.Provider
             value={{
-                quizzes: state.quizzes
+                quizzes: state.quizzes,
+                // quiz: state.quiz,
             }}
         >
             {props.children}
