@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // import logo from `./logo.svg`;
 import Navbar from './components/layout/Navbar'
@@ -7,8 +7,16 @@ import About from './components/pages/About'
 import './App.css';
 
 import QuizState from './context/Quiz/QuizState'
+// import QuizItem from './components/quizzes/QuizItem';
 
-function App() {
+
+
+
+
+const App = () => {
+
+  // const [user, setUser] = useState({});
+
   return (
     <QuizState>
       <Router>
@@ -20,6 +28,8 @@ function App() {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/about' component={About} />
+              {/* <Route exact path='/quiz/:id' component={QuizItem} /> */}
+
             </Switch>
 
 
