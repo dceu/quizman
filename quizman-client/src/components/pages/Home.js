@@ -1,11 +1,14 @@
 import React from 'react'
+import Quizzes from '../quizzes/Quizzes';
 
 const Home = () => {
     return (
         <div>
-            <h1>Home</h1>
+            <div>
+                <Quizzes />
+            </div>
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;
